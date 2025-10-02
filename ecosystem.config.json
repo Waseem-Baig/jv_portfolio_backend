@@ -1,0 +1,36 @@
+{
+  "apps": [
+    {
+      "name": "jv-kalyan-backend",
+      "script": "./index.js",
+      "cwd": "/var/www/jvkalyan-backend/jv_portfolio_backend",
+      "instances": 1,
+      "exec_mode": "cluster",
+      "env": {
+        "NODE_ENV": "production",
+        "PORT": 5001
+      },
+      "error_file": "/var/www/jvkalyan-backend/logs/error.log",
+      "out_file": "/var/www/jvkalyan-backend/logs/out.log",
+      "log_file": "/var/www/jvkalyan-backend/logs/combined.log",
+      "time": true,
+      "autorestart": true,
+      "restart_delay": 1000,
+      "max_restarts": 10,
+      "min_uptime": "10s",
+      "max_memory_restart": "1G",
+      "node_args": [],
+      "args": [],
+      "watch": false,
+      "ignore_watch": [
+        "node_modules",
+        "uploads",
+        "logs"
+      ],
+      "env_production": {
+        "NODE_ENV": "production",
+        "PORT": 5001
+      }
+    }
+  ]
+}
