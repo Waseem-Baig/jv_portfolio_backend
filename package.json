@@ -1,0 +1,32 @@
+{
+  "name": "jv-kalyan-backend",
+  "version": "1.0.0",
+  "description": "Backend API for JV Kalyan portfolio website",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "seed": "node seedSkills.js",
+    "seed:achievements": "node seedAchievements.js",
+    "seed:experiences": "node seedExperiences.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "express",
+    "mongodb",
+    "api",
+    "portfolio"
+  ],
+  "author": "JV Kalyan",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "mongoose": "^8.18.1",
+    "multer": "^2.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
