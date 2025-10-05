@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const app = express();
 
 // CORS configuration
@@ -13,13 +14,14 @@ app.use(
       "http://localhost:5173",
       "https://jvkalyan.com",
       "https://www.jvkalyan.com",
-      "https://api.jvkalyan.com"
+      "https://api.jvkalyan.com",
     ],
     credentials: true,
   })
 );
 
 app.use(express.json());
+app.use(cookieParser());
 
 // MongoDB connection
 const mongoURI =
@@ -40,6 +42,7 @@ const skillsRoutes = require("./routes/skills");
 const achievementsRoutes = require("./routes/achievements");
 const experiencesRoutes = require("./routes/experiences");
 const mediaRoutes = require("./routes/media");
+const authRoutes = require("./routes/auth");
 
 // Serve static files (uploaded images)
 const path = require("path");
@@ -55,6 +58,7 @@ app.use("/api/skills", skillsRoutes);
 app.use("/api/achievements", achievementsRoutes);
 app.use("/api/experiences", experiencesRoutes);
 app.use("/api/media", mediaRoutes);
+app.use("/api/auth", authRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
