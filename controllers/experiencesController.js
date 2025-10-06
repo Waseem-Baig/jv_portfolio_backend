@@ -32,6 +32,14 @@ const createExperience = async (req, res) => {
   try {
     const experienceData = req.body;
 
+    // Convert data types as needed
+    if (experienceData.order) {
+      experienceData.order = parseInt(experienceData.order);
+    }
+    if (experienceData.isActive !== undefined) {
+      experienceData.isActive = experienceData.isActive === "true";
+    }
+
     // If file was uploaded, set the image path
     if (req.file) {
       experienceData.image = `/uploads/${req.file.filename}`;
@@ -62,6 +70,14 @@ const updateExperience = async (req, res) => {
       return res.status(404).json({ message: "Experience not found" });
     }
 
+    // Convert data types as needed
+    if (experienceData.order) {
+      experienceData.order = parseInt(experienceData.order);
+    }
+    if (experienceData.isActive !== undefined) {
+      experienceData.isActive = experienceData.isActive === "true";
+    }
+
     // If new file was uploaded, update image path and delete old file
     if (req.file) {
       experienceData.image = `/uploads/${req.file.filename}`;
@@ -73,6 +89,9 @@ const updateExperience = async (req, res) => {
           if (err) console.error("Error deleting old file:", err);
         });
       }
+    } else {
+      // If no new file uploaded, preserve the existing image
+      experienceData.image = oldExperience.image;
     }
 
     const experience = await Experience.findByIdAndUpdate(

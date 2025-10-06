@@ -28,9 +28,11 @@ exports.signup = async (req, res) => {
     });
 
     // Set HttpOnly cookie
+    // Only use secure cookies when the request comes from HTTPS
+    const isSecure = req.secure || req.headers["x-forwarded-proto"] === "https";
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: isSecure, // Dynamic based on request protocol
       sameSite: "lax",
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
     });
@@ -66,9 +68,11 @@ exports.signin = async (req, res) => {
     });
 
     // Set HttpOnly cookie
+    // Only use secure cookies when the request comes from HTTPS
+    const isSecure = req.secure || req.headers["x-forwarded-proto"] === "https";
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: isSecure, // Dynamic based on request protocol
       sameSite: "lax",
       maxAge: 1000 * 60 * 60 * 24 * 7,
     });
@@ -89,10 +93,12 @@ exports.me = async (req, res) => {
 
 exports.signout = async (req, res) => {
   try {
+    // Match the same secure setting as when the cookie was set
+    const isSecure = req.secure || req.headers["x-forwarded-proto"] === "https";
     res.clearCookie("token", {
       httpOnly: true,
       sameSite: "lax",
-      secure: process.env.NODE_ENV === "production",
+      secure: isSecure,
     });
     res.json({ message: "Signed out" });
   } catch (err) {
